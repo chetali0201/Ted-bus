@@ -107,7 +107,7 @@ If you want to contact me, you can reach me at [girishmaharana42@gmail.com ].
 
 ## Acknowledgments
 
-- [RedBus](https://www.redbus.in/) for the inspiration.
+- [RedBus](https://www.redbus.in/) for the inspiration .
 
 ---
 
