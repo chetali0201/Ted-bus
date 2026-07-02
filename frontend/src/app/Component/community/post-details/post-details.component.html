@@ -1,0 +1,101 @@
+<div class="w-full px-4 md:px-14 py-6" *ngIf="post">
+
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <div class="text-sm text-gray-500">{{ post.type | titlecase }}</div>
+      <div class="text-3xl font-bold text-gray-900">{{ post.title }}</div>
+      <div class="mt-3 text-gray-700">{{ post.content }}</div>
+
+      <div *ngIf="post.photoUrl" class="mt-4">
+        <img [src]="post.photoUrl" alt="post photo" class="w-full max-w-3xl rounded-xl" />
+      </div>
+
+      <div class="mt-4 flex items-center gap-4 text-sm text-gray-600">
+        <span class="flex items-center gap-1">👍 {{ post.likesCount }}</span>
+        <span class="flex items-center gap-1">💬 {{ post.commentsCount }}</span>
+      </div>
+
+<app-social-sharing
+[shareUrl]="getShareUrl(post._id)"
+      ></app-social-sharing>
+    </div>
+
+    <div class="min-w-[240px]">
+      <div class="bg-white border border-gray-100 rounded-xl shadow-sm p-4">
+        <button class="w-full bg-main-color text-white py-2 rounded-lg hover:opacity-90" (click)="like()">Like</button>
+        <button class="w-full border border-main-color text-main-color py-2 rounded-lg hover:bg-main-color/5 mt-3" (click)="unlike()">
+          Unlike
+        </button>
+
+        <button
+          class="w-full border border-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-50 mt-3"
+          (click)="report()"
+        >
+          Report
+        </button>
+
+        <div *ngIf="isOwner(post.userId)" class="mt-3">
+          <button class="w-full border border-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-50" (click)="updatePostPrompt()">Edit</button>
+          <button class="w-full border border-red-200 text-red-600 py-2 rounded-lg hover:bg-red-50 mt-3" (click)="deletePost()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 bg-white border border-gray-100 rounded-xl shadow-sm p-6">
+    <div class="text-lg font-semibold text-gray-800">Comments</div>
+
+    <div class="mt-4 flex gap-3">
+      <input
+        class="flex-1 border border-gray-200 rounded-lg px-3 py-2"
+        [(ngModel)]="commentText"
+        placeholder="Write a comment..."
+      />
+      <button class="bg-main-color text-white px-4 py-2 rounded-lg hover:opacity-90" (click)="addComment()">
+        Send
+      </button>
+    </div>
+
+    <div *ngFor="let c of comments" class="mt-4 border-t border-gray-100 pt-4">
+      <div class="flex items-start justify-between gap-3">
+        <div class="text-gray-800">
+          <div class="text-sm text-gray-500">{{ c.userId }}</div>
+          <div class="mt-1" *ngIf="!(editing && editCommentId===c._id)">{{ c.text }}</div>
+          <div *ngIf="editing && editCommentId===c._id">
+            <input class="w-full border border-gray-200 rounded-lg px-3 py-2" [(ngModel)]="editText" />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <button
+            *ngIf="isOwner(c.userId) && !(editing && editCommentId===c._id)"
+            class="text-sm text-main-color hover:underline"
+            (click)="startEditComment(c)"
+          >
+            Edit
+          </button>
+
+          <button
+            *ngIf="isOwner(c.userId) && !(editing && editCommentId===c._id)"
+            class="text-sm text-red-600 hover:underline"
+            (click)="deleteComment(c)"
+          >
+            Delete
+          </button>
+
+          <div *ngIf="editing && editCommentId===c._id" class="flex gap-2">
+            <button class="text-sm text-main-color hover:underline" (click)="saveEditComment()">Save</button>
+            <button class="text-sm text-gray-600 hover:underline" (click)="cancelEdit()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="comments.length === 0" class="mt-4 text-gray-500">No comments yet.</div>
+  </div>
+</div>
+
+<div *ngIf="!post" class="px-4 md:px-14 py-8 text-gray-500">Loading...</div>
+

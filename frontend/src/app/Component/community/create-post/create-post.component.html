@@ -1,0 +1,73 @@
+<div class="w-full px-4 md:px-14 py-6">
+  <div class="text-2xl font-bold text-gray-800">Create a post</div>
+
+  <div class="mt-6 bg-white border border-gray-100 rounded-xl shadow-sm p-6 max-w-3xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="text-sm text-gray-600">Post type</label>
+        <select
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 mt-2"
+          [(ngModel)]="postType"
+        >
+          <option value="story">Story</option>
+          <option value="tip">Travel Tip</option>
+          <option value="photo">Photo</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-sm text-gray-600">Destination (optional)</label>
+        <input
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 mt-2"
+          [(ngModel)]="destination"
+          placeholder="e.g., Bangalore -> Chennai"
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="text-sm text-gray-600">Title</label>
+        <input
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 mt-2"
+          [(ngModel)]="title"
+          placeholder="Add a short title"
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="text-sm text-gray-600">Content</label>
+        <textarea
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 mt-2 h-32"
+          [(ngModel)]="content"
+          placeholder="Share your journey story or tips..."
+        ></textarea>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="text-sm text-gray-600">Photo URL (optional)</label>
+        <input
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 mt-2"
+          [(ngModel)]="photoUrl"
+          placeholder="https://..."
+        />
+      </div>
+    </div>
+
+    <div class="mt-6 flex items-center gap-3">
+      <button
+        class="bg-main-color text-white px-5 py-2 rounded-lg hover:opacity-90 disabled:opacity-50"
+        [disabled]="isSubmitting"
+        (click)="submit()"
+      >
+        {{ isSubmitting ? 'Posting...' : 'Publish' }}
+      </button>
+      <button
+        class="border border-gray-200 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-50"
+(click)="goToCommunity()"
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,51 @@
+# Angular / Build
+frontend/dist/
+frontend/out-tsc/
+frontend/.angular/
+frontend/.cache/
+frontend/tmp/
+frontend/bazel-out/
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/server/node_modules/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Coverage
+coverage/
+frontend/coverage/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDEs and editors
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+.project
+.classpath
+.c9/
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# OS junk
+*.swp
+*.swo
+
